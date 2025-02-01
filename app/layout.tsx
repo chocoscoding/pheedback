@@ -1,6 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
-import Navbar from "@/components/marketing/navbar";
 import { cn } from "@/lib";
 import { generateMetadata } from "@/utils";
 import { base, heading } from "@/constants";
@@ -20,7 +19,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           subheading.variable
         )}>
         <ClerkProvider>
-          <Navbar />
           {children}
           <Toaster richColors theme="dark" position="top-right" />
         </ClerkProvider>

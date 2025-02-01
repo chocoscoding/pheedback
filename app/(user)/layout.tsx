@@ -1,10 +1,21 @@
+import { auth } from "@clerk/nextjs/server";
+import { AppSidebar } from "@/components/sidebar/app-sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { ReactNode, Suspense } from "react";
 import Loading from "./loading";
-import { Suspense } from "react";
 
-export default function UserLayout({ children }: { children: React.ReactNode }) {
+export default async function Page({ children }: { children: ReactNode }) {
+  const { userId } = auth();
+  if (!userId) {
+    return null;
+  }
+
   return (
-    <div className="container w-full max-w-screen-xl mx-auto py-10 px-2.5 lg:px-20">
-      <Suspense fallback={<Loading />}>{children}</Suspense>
-    </div>
-  )
+    <SidebarProvider>
+      <AppSidebar className="bg-zinc-900" />
+      <SidebarInset>
+        <Suspense fallback={<Loading />}>{children}</Suspense>
+      </SidebarInset>
+    </SidebarProvider>
+  );
 }
