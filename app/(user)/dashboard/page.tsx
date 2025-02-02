@@ -26,34 +26,10 @@ export default async function Page() {
     return null;
   }
 
-  // const PROJECTS: Item[] = await getLatestProjectsWithFeedback(userId);
-  // const FEELINGS_DATA = await getUserResponseData(userId);
-  // const RESPONSE_DATA = await getResponsesByDay(userId);
-  // const PROJECTS_STATS = await getUserProjectStats(userId);
-  const PROJECTS: Item[] = [
-    { projectId: 1, projectName: "Pheedback Landing 2.0", feedbackCount: 734, projectStatus: "Active", averageRating: 4.5 },
-    { projectId: 2, projectName: "DocsSmith 3rd docs", feedbackCount: 223, projectStatus: "Active", averageRating: 3.8 },
-    { projectId: 4, projectName: "Project Delta", feedbackCount: 981, projectStatus: "Active", averageRating: 4.9 },
-    { projectId: 5, projectName: "Firebase Site", feedbackCount: 21, projectStatus: "Active", averageRating: 3.5 },
-    { projectId: 6, projectName: "Marketing Feedback", feedbackCount: 654, projectStatus: "Inactive", averageRating: 4.2 },
-    { projectId: 7, projectName: "Project Eta", feedbackCount: 87, projectStatus: "Active", averageRating: 4.7 },
-    { projectId: 3, projectName: "AI Translator App", feedbackCount: 0, projectStatus: "Pending", averageRating: 4.2 },
-    { projectId: 8, projectName: "Theta", feedbackCount: 132, projectStatus: "Inactive", averageRating: 3.9 },
-    { projectId: 9, projectName: "Iota", feedbackCount: 276, projectStatus: "Pending", averageRating: 4.3 },
-    { projectId: 10, projectName: "Kappa", feedbackCount: 43, projectStatus: "Active", averageRating: 4.6 },
-  ];
-  const RESPONSE_DATA = Array.from({ length: 90 }, (_, i) => ({
-    date: new Date(Date.now() - i * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
-    response: Math.floor(Math.random() * 50) + 1,
-  }));
-  const PROJECTS_STATS = { totalProjects: 22, totalResponses: 3417, activeProjects: 13 };
-  const FEELINGS_DATA = [
-    { rating: "1", response: 20, fill: "var(--color-1)" },
-    { rating: "2", response: 31, fill: "var(--color-2)" },
-    { rating: "3", response: 17, fill: "var(--color-3)" },
-    { rating: "4", response: 50, fill: "var(--color-4)" },
-    { rating: "5", response: 11, fill: "var(--color-5)" },
-  ];
+  const PROJECTS: Item[] = await getLatestProjectsWithFeedback(userId);
+  const FEELINGS_DATA = await getUserResponseData(userId);
+  const RESPONSE_DATA = await getResponsesByDay(userId);
+  const PROJECTS_STATS = await getUserProjectStats(userId);
 
   const subscribed = await getSubscription({ userId });
 

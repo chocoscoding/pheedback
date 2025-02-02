@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { Inter, DM_Sans, Instrument_Serif } from "next/font/google";
 import localFont from "next/font/local";
 
-export const heading = localFont({
+const heading = localFont({
   src: [
     {
       path: "/fonts/Satoshi-Light.woff2",
@@ -37,12 +37,12 @@ export const heading = localFont({
   variable: "--font-heading",
 });
 
-export const base = Inter({
+const base = Inter({
   subsets: ["latin"],
   variable: "--font-base",
 });
 
-export const subheading = Instrument_Serif({
+const subheading = Instrument_Serif({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-subheading",
