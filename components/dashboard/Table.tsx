@@ -19,6 +19,7 @@ import {
 } from "@tanstack/react-table";
 import { ChevronDown, ChevronFirst, ChevronLast, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import { useEffect, useId, useState } from "react";
+import Link from "next/link";
 
 type Item = {
   id: string;
@@ -32,7 +33,11 @@ const columns: ColumnDef<Item>[] = [
   {
     header: "Name",
     accessorKey: "name",
-    cell: ({ row }) => <div className="font-medium">{row.getValue("name")}</div>,
+    cell: ({ row }) => (
+      <Link href={"/projects/" + row.original.id} className="font-medium hover:underline">
+        {row.getValue("name")}
+      </Link>
+    ),
     size: 180,
   },
   {

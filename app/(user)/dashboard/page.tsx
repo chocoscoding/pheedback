@@ -107,23 +107,18 @@ export default async function Page() {
       </div>
       {/* <NoProject /> */}
       <div className="w-full relative pl-4">
-        {/* <div className="flex justify-end w-full">
-          <Link href={"/projects"} className="w-fit">
-            <Button className="my-2 py-5">
-              <PlusIcon className="w-10" />
-              Create new Project
-            </Button>
-          </Link>
-        </div> */}
+        <TextAnimate animation="slideUp" delay={0.8} by="word" className="text-3xl mb-4 mt-1 font-bold">
+          Recent Projects
+        </TextAnimate>
         <Table key={"iggg"} hidePagination pageSize={10} />
       </div>
-      <div>
+      {/* <div>
         <div className="flex items-center justify-center gap-3">
           <h1 className="text-3xl font-bold text-center my-4">Your Projects</h1>
           {subscribed !== true && userProjects.length > maxFreeProjects ? null : <NewProjBtn />}
         </div>
         <ProjectsList projects={userProjects} subscribed={subscribed} />
-      </div>
+      </div> */}
     </div>
   );
 }
