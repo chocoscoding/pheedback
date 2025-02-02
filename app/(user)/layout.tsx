@@ -11,11 +11,13 @@ export default async function Page({ children }: { children: ReactNode }) {
   }
 
   return (
-    <SidebarProvider>
-      <AppSidebar className="bg-zinc-900" />
-      <SidebarInset>
-        <Suspense fallback={<Loading />}>{children}</Suspense>
-      </SidebarInset>
-    </SidebarProvider>
+    <div className="w-full relative m-auto max-w-[1500px]">
+      <SidebarProvider>
+        <AppSidebar className="bg-neutral-900" />
+        <SidebarInset>
+          <Suspense fallback={<Loading />}>{children}</Suspense>
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
   );
 }

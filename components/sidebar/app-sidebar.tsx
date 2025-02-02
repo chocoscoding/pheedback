@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useEffect, useMemo } from "react";
 import { BookOpen, Bot, Command, Frame, LifeBuoy, Map, PieChart, Send, Settings2, SquareTerminal } from "lucide-react";
 
 import { NavMain } from "@/components/sidebar/nav-main";
@@ -18,51 +18,63 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 import Icons from "../global/icons";
-
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
-    {
-      title: "Home",
-      url: "/dashboard",
-      icon: SquareTerminal,
-      isActive: true,
-    },
-    {
-      title: "Projects",
-      url: "/projects",
-      icon: Bot,
-    },
-    {
-      title: "Payments",
-      url: "/payments",
-      icon: BookOpen,
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Support",
-      url: "#",
-      icon: LifeBuoy,
-    },
-    {
-      title: "Feedback",
-      url: "#",
-      icon: Send,
-    },
-  ],
-};
+import { usePathname, useRouter } from "next/navigation";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const navigation = usePathname();
+  const data = useMemo(
+    () => ({
+      user: {
+        name: "shadcn",
+        email: "m@example.com",
+        avatar: "/avatars/shadcn.jpg",
+      },
+      navMain: [
+        {
+          title: "Home",
+          url: "/dashboard",
+          icon: SquareTerminal,
+          isActive: true,
+        },
+        {
+          title: "Projects",
+          url: "/projects",
+          icon: Bot,
+        },
+        {
+          title: "Payments",
+          url: "/payments",
+          icon: BookOpen,
+        },
+        {
+          title: "Settings",
+          url: "/settings",
+          icon: Settings2,
+        },
+      ],
+      navSecondary: [
+        {
+          title: "Support",
+          url: "#",
+          icon: LifeBuoy,
+        },
+        {
+          title: "Feedback",
+          url: "#",
+          icon: Send,
+        },
+      ],
+    }),
+    []
+  );
+
+  const updatedNavMain = useMemo(() => {
+    return data.navMain.map((route, i) => ({
+      ...route,
+      isActive: navigation.match(route.url) !== null,
+    }));
+  }, [navigation, data.navMain]);
+
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
@@ -78,7 +90,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
+        <NavMain items={updatedNavMain} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <hr className="mt-2" />
