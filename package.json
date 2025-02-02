@@ -44,6 +44,7 @@
     "@radix-ui/react-toggle-group": "^1.1.1",
     "@radix-ui/react-tooltip": "^1.1.6",
     "@stripe/stripe-js": "^4.1.0",
+    "@studio-freight/react-lenis": "github:studio-freight/react-lenis",
     "@tabler/icons-react": "^3.29.0",
     "@tanstack/react-table": "^8.19.2",
     "class-variance-authority": "^0.7.1",

@@ -29,6 +29,34 @@
       "when": 1738246746749,
       "tag": "20250130141906_cool_mister_sinister",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1738508435601,
+      "tag": "20250202150035_solid_the_hunter",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1738508605590,
+      "tag": "20250202150325_sleepy_rictor",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1738511938610,
+      "tag": "20250202155858_material_sunfire",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1738516791577,
+      "tag": "20250202171951_first_blade",
+      "breakpoints": true
     }
   ]
 }

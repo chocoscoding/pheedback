@@ -19,54 +19,49 @@ import {
 } from "@tanstack/react-table";
 import { ChevronDown, ChevronFirst, ChevronLast, ChevronLeft, ChevronRight, ChevronUp } from "lucide-react";
 import { useEffect, useId, useState } from "react";
-import Link from "next/link";
 
 type Item = {
-  projectId: number;
-  projectName: string | null;
-  feedbackCount: number;
-  projectStatus: "Active" | "Inactive" | "Pending" | null;
-  averageRating: number;
+  id: string;
+  name: string;
+  feedbacks: number;
+  status: "Active" | "Inactive" | "Pending";
+  avgfeel: number;
 };
 
 const columns: ColumnDef<Item>[] = [
   {
     header: "Name",
-    accessorKey: "projectName",
-    cell: ({ row }) => (
-      <Link href={"/projects/" + row.original.projectId} className="font-medium hover:underline">
-        {row.getValue("projectName")}
-      </Link>
-    ),
+    accessorKey: "name",
+    cell: ({ row }) => <div className="font-medium">{row.getValue("name")}</div>,
     size: 180,
   },
   {
     header: "Status",
-    accessorKey: "projectStatus",
+    accessorKey: "status",
     cell: ({ row }) => (
       <Badge
         className={cn(
-          row.getValue("projectStatus") === "Inactive" && "bg-muted-foreground/60 text-primary-foreground",
-          row.getValue("projectStatus") === "Pending" && "bg-yellow-600/60 text-primary-foreground"
+          row.getValue("status") === "Inactive" && "bg-muted-foreground/60 text-primary-foreground",
+          row.getValue("status") === "Pending" && "bg-yellow-600/60 text-primary-foreground"
         )}>
-        {row.getValue("projectStatus")}
+        {row.getValue("status")}
       </Badge>
     ),
     size: 120,
   },
   {
     header: "Feedbacks",
-    accessorKey: "feedbackCount",
+    accessorKey: "feedbacks",
     size: 200,
   },
   {
     header: "Average Feel",
-    accessorKey: "averageRating",
+    accessorKey: "avgfeel",
     size: 120,
   },
 ];
 
-export default function Component(props: { pageIndex?: number; pageSize?: number; hidePagination?: boolean; serverProjects: Item[] }) {
+export default function Component(props: { pageIndex?: number; pageSize?: number; hidePagination?: boolean }) {
   const id = useId();
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: props.pageIndex ?? 0,
@@ -75,12 +70,89 @@ export default function Component(props: { pageIndex?: number; pageSize?: number
 
   const [sorting, setSorting] = useState<SortingState>([
     {
-      id: "projectId",
+      id: "name",
       desc: false,
     },
   ]);
 
-  const [data, setData] = useState<Item[]>(props.serverProjects);
+  const [data, setData] = useState<Item[]>([]);
+  useEffect(() => {
+    async function fetchPosts() {
+      setData([
+        {
+          id: "1",
+          name: "Project Alpha",
+          feedbacks: 15,
+          status: "Active",
+          avgfeel: 4.5,
+        },
+        {
+          id: "2",
+          name: "Project Beta",
+          feedbacks: 8,
+          status: "Inactive",
+          avgfeel: 3.8,
+        },
+        {
+          id: "3",
+          name: "Project Gamma",
+          feedbacks: 20,
+          status: "Pending",
+          avgfeel: 4.2,
+        },
+        {
+          id: "4",
+          name: "Project Delta",
+          feedbacks: 12,
+          status: "Active",
+          avgfeel: 4.0,
+        },
+        {
+          id: "5",
+          name: "Project Epsilon",
+          feedbacks: 5,
+          status: "Pending",
+          avgfeel: 3.5,
+        },
+        {
+          id: "6",
+          name: "Project Zeta",
+          feedbacks: 18,
+          status: "Active",
+          avgfeel: 4.7,
+        },
+        {
+          id: "7",
+          name: "Project Eta",
+          feedbacks: 10,
+          status: "Pending",
+          avgfeel: 4.1,
+        },
+        {
+          id: "8",
+          name: "Project Theta",
+          feedbacks: 7,
+          status: "Inactive",
+          avgfeel: 3.9,
+        },
+        {
+          id: "9",
+          name: "Project Iota",
+          feedbacks: 22,
+          status: "Active",
+          avgfeel: 4.8,
+        },
+        {
+          id: "10",
+          name: "Project Kappa",
+          feedbacks: 9,
+          status: "Pending",
+          avgfeel: 4.3,
+        },
+      ]);
+    }
+    fetchPosts();
+  }, []);
 
   const table = useReactTable({
     data,

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import { BookOpen, Bot, Command, Frame, LifeBuoy, Map, PieChart, Send, Settings2, SquareTerminal } from "lucide-react";
+import { BookOpen, Bot, Command, DollarSign, Folder, Frame, LifeBuoy, Map, PieChart, Send, Settings2, SquareTerminal } from "lucide-react";
 
 import { NavMain } from "@/components/sidebar/nav-main";
 import { NavProjects } from "@/components/sidebar/nav-projects";
@@ -39,12 +39,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {
           title: "Projects",
           url: "/projects",
-          icon: Bot,
+          icon: Folder,
         },
         {
           title: "Payments",
           url: "/payments",
-          icon: BookOpen,
+          icon: DollarSign,
         },
         {
           title: "Settings",

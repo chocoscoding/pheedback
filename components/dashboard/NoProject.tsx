@@ -1,6 +1,7 @@
 import ShapeSVG from "@/app/(user)/dashboard/ShapeSVG";
 import { Button } from "../ui/button";
 import { PlusIcon } from "lucide-react";
+import NewProjBtn from "@/components/new-proj";
 
 const NoProject = () => {
   return (

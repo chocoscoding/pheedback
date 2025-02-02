@@ -14,9 +14,7 @@ export default async function Page({ children }: { children: ReactNode }) {
     <div className="w-full relative m-auto max-w-[1500px]">
       <SidebarProvider>
         <AppSidebar className="bg-neutral-900" />
-        <SidebarInset>
-          <Suspense fallback={<Loading />}>{children}</Suspense>
-        </SidebarInset>
+        <SidebarInset>{children}</SidebarInset>
       </SidebarProvider>
     </div>
   );

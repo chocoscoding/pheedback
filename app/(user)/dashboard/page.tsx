@@ -1,31 +1,24 @@
-import NewProjBtn from "@/components/new-proj";
-import { db } from "@/db";
-import { projects } from "@/db/schema";
-import { eq } from "drizzle-orm";
 import { auth } from "@clerk/nextjs/server";
-import ProjectsList from "./projects-list";
 import { getSubscription } from "@/actions/userSubscriptions";
-import { maxFreeProjects } from "@/lib/payments";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import ReponseChart from "./ResponseChart";
 import FeelingChart from "./FeelingChart";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { PlusIcon, PlusSquare } from "lucide-react";
-import ShapeSVG from "./ShapeSVG";
 import { TextAnimate } from "@/components/animation/TextAnimate";
 import Table from "@/components/dashboard/Table";
-import Link from "next/link";
 import NoProject from "@/components/dashboard/NoProject";
+import { getLatestProjectsWithFeedback, getResponsesByDay, getUserProjectStats, getUserResponseData } from "@/actions/dashboard";
+import TopInformation from "./TopInformation";
+
+type Item = {
+  projectId: number;
+  projectName: string | null;
+  feedbackCount: number;
+  projectStatus: "Active" | "Inactive" | "Pending" | null;
+  averageRating: number;
+};
 
 export default async function Page() {
   const { userId } = auth();
@@ -33,7 +26,34 @@ export default async function Page() {
     return null;
   }
 
-  const userProjects = await db.select().from(projects).where(eq(projects.userId, userId));
+  // const PROJECTS: Item[] = await getLatestProjectsWithFeedback(userId);
+  // const FEELINGS_DATA = await getUserResponseData(userId);
+  // const RESPONSE_DATA = await getResponsesByDay(userId);
+  // const PROJECTS_STATS = await getUserProjectStats(userId);
+  const PROJECTS: Item[] = [
+    { projectId: 1, projectName: "Pheedback Landing 2.0", feedbackCount: 734, projectStatus: "Active", averageRating: 4.5 },
+    { projectId: 2, projectName: "DocsSmith 3rd docs", feedbackCount: 223, projectStatus: "Active", averageRating: 3.8 },
+    { projectId: 4, projectName: "Project Delta", feedbackCount: 981, projectStatus: "Active", averageRating: 4.9 },
+    { projectId: 5, projectName: "Firebase Site", feedbackCount: 21, projectStatus: "Active", averageRating: 3.5 },
+    { projectId: 6, projectName: "Marketing Feedback", feedbackCount: 654, projectStatus: "Inactive", averageRating: 4.2 },
+    { projectId: 7, projectName: "Project Eta", feedbackCount: 87, projectStatus: "Active", averageRating: 4.7 },
+    { projectId: 3, projectName: "AI Translator App", feedbackCount: 0, projectStatus: "Pending", averageRating: 4.2 },
+    { projectId: 8, projectName: "Theta", feedbackCount: 132, projectStatus: "Inactive", averageRating: 3.9 },
+    { projectId: 9, projectName: "Iota", feedbackCount: 276, projectStatus: "Pending", averageRating: 4.3 },
+    { projectId: 10, projectName: "Kappa", feedbackCount: 43, projectStatus: "Active", averageRating: 4.6 },
+  ];
+  const RESPONSE_DATA = Array.from({ length: 90 }, (_, i) => ({
+    date: new Date(Date.now() - i * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+    response: Math.floor(Math.random() * 50) + 1,
+  }));
+  const PROJECTS_STATS = { totalProjects: 22, totalResponses: 3417, activeProjects: 13 };
+  const FEELINGS_DATA = [
+    { rating: "1", response: 20, fill: "var(--color-1)" },
+    { rating: "2", response: 31, fill: "var(--color-2)" },
+    { rating: "3", response: 17, fill: "var(--color-3)" },
+    { rating: "4", response: 50, fill: "var(--color-4)" },
+    { rating: "5", response: 11, fill: "var(--color-5)" },
+  ];
 
   const subscribed = await getSubscription({ userId });
 
@@ -48,70 +68,35 @@ export default async function Page() {
               <BreadcrumbItem className="hidden md:block">
                 <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
               </BreadcrumbItem>
-              {/* <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-              </BreadcrumbItem> */}
             </BreadcrumbList>
           </Breadcrumb>
         </div>
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          <Card className="flex flex-col rounded-xl bg-muted/50 lg:min-w-[300px] max-h-[300px]">
-            <CardHeader className="items-start pb-0 text-neutral-300">
-              <CardTitle>Projects</CardTitle>
-              <CardDescription>All your active projects collecting feedback</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <TextAnimate animation="slideUp" delay={1} by="character" className="text-6xl mt-6 font-bold">
-                12
-              </TextAnimate>
-            </CardContent>
-          </Card>
-          <Card className="flex flex-col rounded-xl bg-muted/50 lg:min-w-[300px] max-h-[300px]">
-            <CardHeader className="items-start pb-0 text-neutral-300">
-              <CardTitle>Responses</CardTitle>
-              <CardDescription>All your feedbacks</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <TextAnimate animation="slideUp" delay={1} by="character" className="text-6xl mt-6 font-bold">
-                12
-              </TextAnimate>
-            </CardContent>
-          </Card>
-          <Card className="flex flex-col rounded-xl bg-muted/50 lg:min-w-[300px] max-h-[300px]">
-            <CardHeader className="items-start pb-0 text-neutral-300">
-              <CardTitle>Active Projects</CardTitle>
-              <CardDescription>All your active projects collecting feedback</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <TextAnimate animation="slideUp" delay={1} by="character" className="text-6xl mt-6 font-bold">
-                12
-              </TextAnimate>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+        <TopInformation data={PROJECTS_STATS} />
       </div>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <div className="grid auto-rows-min gap-4 md:grid-cols-3">
           <div className="aspect-video rounded-xl bg-muted/50">
-            <FeelingChart />
+            <FeelingChart data={FEELINGS_DATA} />
           </div>
           <div className="col-span-2">
-            <ReponseChart />
+            <ReponseChart chartData={RESPONSE_DATA} />
           </div>
         </div>
       </div>
-      {/* <NoProject /> */}
-      <div className="w-full relative pl-4">
-        <TextAnimate animation="slideUp" delay={0.8} by="word" className="text-3xl mb-4 mt-1 font-bold">
-          Recent Projects
-        </TextAnimate>
-        <Table key={"iggg"} hidePagination pageSize={10} />
-      </div>
+      {PROJECTS.length === 0 ? (
+        <NoProject />
+      ) : (
+        <div className="w-full relative pl-4">
+          <TextAnimate animation="slideUp" delay={0.8} by="word" className="text-3xl mb-4 mt-1 font-bold">
+            Recent Projects
+          </TextAnimate>
+          <Table key={"iggg"} hidePagination pageSize={10} serverProjects={PROJECTS} />
+        </div>
+      )}
+
+      <br />
       {/* <div>
         <div className="flex items-center justify-center gap-3">
           <h1 className="text-3xl font-bold text-center my-4">Your Projects</h1>

@@ -1,5 +1,7 @@
-import { pgTable, serial, text, varchar, integer, boolean, uuid } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, varchar, integer, boolean, uuid, pgEnum, timestamp } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
+
+export const statusEnum = pgEnum("status", ["Pending", "Active", "Inactive"]);
 
 export const projects = pgTable("projects", {
   id: serial("id").primaryKey(),
@@ -8,6 +10,8 @@ export const projects = pgTable("projects", {
   url: text("url"),
   userId: varchar("user_id"),
   projectKey: uuid("project_key").notNull().defaultRandom(),
+  status: statusEnum("status").default("Active"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const projectsRelations = relations(projects, ({ many }) => ({
@@ -21,6 +25,7 @@ export const feedbacks = pgTable("feedbacks", {
   userEmail: text("user_email"),
   message: text("message"),
   rating: integer("rating"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const feedbacksRelations = relations(feedbacks, ({ one }) => ({

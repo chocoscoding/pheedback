@@ -6,17 +6,9 @@ import { auth } from "@clerk/nextjs/server";
 import ProjectsList from "./projects-list";
 import { getSubscription } from "@/actions/userSubscriptions";
 import { maxFreeProjects } from "@/lib/payments";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-
 export default async function Page() {
   const { userId } = auth();
   if (!userId) {
@@ -36,31 +28,23 @@ export default async function Page() {
           <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">Building Your Application</BreadcrumbLink>
+                <BreadcrumbLink href="/projects">Projects</BreadcrumbLink>
               </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
+              {/* <BreadcrumbSeparator className="hidden md:block" />
               <BreadcrumbItem>
                 <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-              </BreadcrumbItem>
+              </BreadcrumbItem> */}
             </BreadcrumbList>
           </Breadcrumb>
         </div>
       </header>
-      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-          <div className="aspect-video rounded-xl bg-muted/50" />
-          <div className="aspect-video rounded-xl bg-muted/50" />
-          <div className="aspect-video rounded-xl bg-muted/50" />
-        </div>
-        <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
-      </div>
-      <div>
-        <div className="flex items-center justify-center gap-3">
+      <>
+        <div className="flex items-center justify-center flex-1 flex-col gap-4 p-4 pt-0">
           <h1 className="text-3xl font-bold text-center my-4">Your Projects</h1>
           {subscribed !== true && userProjects.length > maxFreeProjects ? null : <NewProjBtn />}
         </div>
         <ProjectsList projects={userProjects} subscribed={subscribed} />
-      </div>
+      </>
     </div>
   );
 }

@@ -59,7 +59,7 @@ const Hero = () => {
               <div className="hidden lg:block absolute -top-1/8 left-1/2 -z-20 bg-blue-600 w-1/4 -translate-x-1/2 h-1/4 -translate-y-1/2 inset-0 blur-[10rem] animate-image-glow"></div>
 
               <div className="rounded-lg lg:rounded-[22px] border border-border bg-background">
-                <Image src="/images/dashboard.png" alt="dashboard" width={1920} height={1080} className="rounded-lg lg:rounded-[20px]" />
+                <Image src="/MiniPic.webp" alt="dashboard" width={1920} height={1080} className="rounded-lg lg:rounded-[20px]" />
               </div>
             </div>
             <div className="bg-gradient-to-t from-background to-transparent absolute bottom-0 inset-x-0 w-full h-1/2"></div>

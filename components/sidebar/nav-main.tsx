@@ -37,11 +37,11 @@ export function NavMain({
           <Collapsible key={item.title} asChild defaultOpen={item.isActive}>
             <SidebarMenuItem>
               <SidebarMenuButton
-                className={`${item.isActive ? "bg-zinc-800" : ""} !py-4 text-lg`}
+                className={`${item.isActive ? "bg-zinc-800" : ""} !py-5 text-lg md:text-xl`}
                 isActive={item.isActive}
                 asChild
                 tooltip={item.title}>
-                <Link href={item.url}>
+                <Link href={item.url} className="my-0.5">
                   <item.icon className="scale-110 mr-1" />
                   <span>{item.title}</span>
                 </Link>
