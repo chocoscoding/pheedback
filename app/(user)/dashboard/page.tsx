@@ -23,6 +23,9 @@ import { Button } from "@/components/ui/button";
 import { PlusIcon, PlusSquare } from "lucide-react";
 import ShapeSVG from "./ShapeSVG";
 import { TextAnimate } from "@/components/animation/TextAnimate";
+import Table from "@/components/dashboard/Table";
+import Link from "next/link";
+import NoProject from "@/components/dashboard/NoProject";
 
 export default async function Page() {
   const { userId } = auth();
@@ -102,14 +105,18 @@ export default async function Page() {
           </div>
         </div>
       </div>
-      <section className="w-full m-4 rounded-lg border flex flex-col justify-center items-center h-[50vh] py-6">
-        <ShapeSVG fill="#ffffff33" height={"250px"} />
-        <Button variant={"blue"} className="my-2 py-5">
-          <PlusIcon className="w-10" />
-          Create Project
-        </Button>
-        <p>Create a new project to get started and see more data</p>
-      </section>
+      {/* <NoProject /> */}
+      <div className="w-full relative pl-4">
+        {/* <div className="flex justify-end w-full">
+          <Link href={"/projects"} className="w-fit">
+            <Button className="my-2 py-5">
+              <PlusIcon className="w-10" />
+              Create new Project
+            </Button>
+          </Link>
+        </div> */}
+        <Table key={"iggg"} hidePagination pageSize={10} />
+      </div>
       <div>
         <div className="flex items-center justify-center gap-3">
           <h1 className="text-3xl font-bold text-center my-4">Your Projects</h1>
