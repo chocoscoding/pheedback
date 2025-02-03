@@ -18,7 +18,7 @@ export const PLANS: PLAN[] = [
     monthlyPrice: 0,
     annuallyPrice: 0,
     buttonText: "Upgrade to Standard",
-    features: ["3 projects", "Unlimited users", "2GB storage", "Priority support"],
+    features: ["7 projects", "Unlimited users", "2GB storage", "Priority support"],
     link: "/dashboard",
   },
   {

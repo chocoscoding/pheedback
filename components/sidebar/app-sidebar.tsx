@@ -42,8 +42,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           icon: Folder,
         },
         {
-          title: "Payments",
-          url: "/payments",
+          title: "Subscription",
+          url: "/subscription",
           icon: DollarSign,
         },
         {
