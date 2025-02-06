@@ -16,8 +16,8 @@ interface MetadataProps {
 }
 
 export const generateMetadata = ({
-  title = `Pheedbac - AI-Powered Project Management & Team Collaboration`,
-  description = `Vetra is an intelligent project management platform that transforms how teams work together. Leverage AI to automate workflows, enhance collaboration, and boost productivity. Experience smarter project management today.`,
+  title = `Pheedbac`,
+  description = `Pheedbac helps you get feedback from your users easily and intuitively.`,
   icons = [
     {
       rel: "icon",
